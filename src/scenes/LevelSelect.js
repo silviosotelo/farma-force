@@ -99,7 +99,7 @@ export class LevelSelect extends Phaser.Scene {
         this.cameras.main.fade(500, 0, 0, 0);
 
         this.time.delayedCall(500, () => {
-            this.scene.start('GameScene', {
+            this.scene.start('GameSceneV2', {
                 level: levelKey,
                 character: this.selectedCharacter,
                 score: 0
