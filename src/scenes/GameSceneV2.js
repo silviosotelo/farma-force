@@ -44,7 +44,7 @@ export class GameSceneV2 extends Phaser.Scene {
         this.physics.add.collider(this.itemDrops, this.platforms);
         this.physics.add.overlap(this.player, this.itemDrops, this.handleItemCollect, null, this);
 
-        this.enemies = this.add.group({ runChildUpdate: true });
+        this.enemies = this.physics.add.group({ runChildUpdate: true });
         this.physics.add.collider(this.enemies, this.platforms);
 
         this.time.addEvent({

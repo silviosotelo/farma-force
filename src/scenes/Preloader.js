@@ -293,55 +293,8 @@ export class Preloader extends Phaser.Scene {
 
         graphics.destroy();
 
-        const loadingBg = this.add.rectangle(
-            this.cameras.main.width / 2,
-            this.cameras.main.height / 2,
-            this.cameras.main.width,
-            this.cameras.main.height,
-            0x000000
-        );
-
-        const loadingText = this.add.text(
-            this.cameras.main.width / 2,
-            this.cameras.main.height / 2 - 40,
-            'INICIANDO SISTEMA NANO-FARMACÉUTICO...',
-            {
-                fontSize: '24px',
-                fill: '#00ffff',
-                fontStyle: 'bold'
-            }
-        ).setOrigin(0.5);
-
-        const loadBar = this.add.rectangle(
-            this.cameras.main.width / 2,
-            this.cameras.main.height / 2 + 20,
-            400, 30, 0x333333
-        );
-        const loadFill = this.add.rectangle(
-            this.cameras.main.width / 2 - 200,
-            this.cameras.main.height / 2 + 20,
-            0, 26, 0x00ffff
-        ).setOrigin(0, 0.5);
-
-        this.tweens.add({
-            targets: loadFill,
-            width: 396,
-            duration: 1500,
-            ease: 'Power2',
-            onComplete: () => {
-                this.cameras.main.fade(500);
-                this.time.delayedCall(500, () => {
-                    this.scene.start('MainMenu');
-                });
-            }
-        });
-
-        this.tweens.add({
-            targets: loadingText,
-            alpha: 0.5,
-            duration: 800,
-            yoyo: true,
-            repeat: -1
+        this.time.delayedCall(100, () => {
+            this.scene.start('MainMenu');
         });
     }
 }
