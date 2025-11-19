@@ -1,22 +1,28 @@
 import { Preloader } from './scenes/Preloader.js';
-import { GameScene } from './scenes/GameScene.js';
-import { UIScene } from './scenes/UIScene.js';
+import { MainMenu } from './scenes/MainMenu.js';
+import { LevelSelect } from './scenes/LevelSelect.js';
+import { GameSceneV2 } from './scenes/GameSceneV2.js';
+import { UISceneV2 } from './scenes/UISceneV2.js';
 
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     parent: 'game-container',
-    backgroundColor: '#2a0000', // Fondo oscuro sangre
+    backgroundColor: '#0a0a0a',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 800 }, // Gravedad estilo Contra
+            gravity: { y: 800 },
             debug: false
         }
     },
     pixelArt: false,
-    scene: [Preloader, GameScene, UIScene]
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [Preloader, MainMenu, LevelSelect, GameSceneV2, UISceneV2]
 };
 
 const game = new Phaser.Game(config);

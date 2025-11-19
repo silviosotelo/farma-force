@@ -125,6 +125,36 @@ export class Preloader extends Phaser.Scene {
         graphics.strokeCircle(25, 25, 18);
         graphics.generateTexture('powerup', 50, 50);
 
-        this.scene.start('GameScene');
+        // Pantalla de carga
+        const loadingBg = this.add.rectangle(400, 300, 800, 600, 0x000000);
+        const loadingText = this.add.text(400, 280, 'INICIANDO SISTEMA NANO-FARMACÉUTICO...', {
+            fontSize: '24px',
+            fill: '#00ffff',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        const loadBar = this.add.rectangle(400, 330, 400, 30, 0x333333);
+        const loadFill = this.add.rectangle(400, 330, 0, 26, 0x00ffff);
+
+        this.tweens.add({
+            targets: loadFill,
+            width: 396,
+            duration: 1500,
+            ease: 'Power2',
+            onComplete: () => {
+                this.cameras.main.fade(500);
+                this.time.delayedCall(500, () => {
+                    this.scene.start('MainMenu');
+                });
+            }
+        });
+
+        this.tweens.add({
+            targets: loadingText,
+            alpha: 0.5,
+            duration: 800,
+            yoyo: true,
+            repeat: -1
+        });
     }
 }

@@ -104,6 +104,11 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
                 this.scene.particles.emitParticleAt(this.x, this.y, this.isBoss ? 50 : 10);
             }
 
+            // DROP de items
+            if (this.scene.dropRandomItem) {
+                this.scene.dropRandomItem(this.x, this.y, this.isBoss);
+            }
+
             // Limpiar barra de vida
             if (this.isBoss) {
                 if (this.healthBarBg) this.healthBarBg.destroy();
