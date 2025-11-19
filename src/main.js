@@ -6,8 +6,8 @@ import { UISceneV2 } from './scenes/UISceneV2.js';
 
 const config = {
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 1280,
+    height: 720,
     parent: 'game-container',
     backgroundColor: '#0a0a0a',
     physics: {
@@ -19,8 +19,10 @@ const config = {
     },
     pixelArt: false,
     scale: {
-        mode: Phaser.Scale.RESIZE,
-        autoCenter: Phaser.Scale.CENTER_BOTH
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1280,
+        height: 720
     },
     scene: [Preloader, MainMenu, LevelSelect, GameSceneV2, UISceneV2]
 };
