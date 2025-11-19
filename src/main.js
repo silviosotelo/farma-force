@@ -1,4 +1,4 @@
-import { Preloader } from './scenes/Preloader.js'; // IMPORTAR
+import { Preloader } from './scenes/Preloader.js';
 import { GameScene } from './scenes/GameScene.js';
 import { UIScene } from './scenes/UIScene.js';
 
@@ -7,15 +7,15 @@ const config = {
     width: 800,
     height: 600,
     parent: 'game-container',
-    backgroundColor: '#2d2d2d',
+    backgroundColor: '#2a0000', // Fondo oscuro sangre
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 },
+            gravity: { y: 800 }, // Gravedad estilo Contra
             debug: false
         }
     },
-    // EL ORDEN IMPORTA: Preloader primero
+    pixelArt: false,
     scene: [Preloader, GameScene, UIScene]
 };
 
