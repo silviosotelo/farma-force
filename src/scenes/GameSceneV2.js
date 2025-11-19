@@ -107,24 +107,23 @@ export class GameSceneV2 extends Phaser.Scene {
 
             const thickness = Phaser.Math.Between(2, 5);
             graphics.lineStyle(thickness, this.levelData.veinColor || 0x660000, 0.4);
-            graphics.beginPath();
-            graphics.moveTo(startX, startY);
 
             let currentX = startX;
             let currentY = startY;
 
             for (let j = 0; j < 15; j++) {
-                currentX += Phaser.Math.Between(30, 120);
-                currentY += Phaser.Math.Between(-80, 80);
-                currentY = Phaser.Math.Clamp(currentY, 0, this.cameras.main.height);
+                const nextX = currentX + Phaser.Math.Between(30, 120);
+                const nextY = Phaser.Math.Clamp(
+                    currentY + Phaser.Math.Between(-80, 80),
+                    0,
+                    this.cameras.main.height
+                );
 
-                const controlX = currentX - Phaser.Math.Between(20, 40);
-                const controlY = currentY + Phaser.Math.Between(-30, 30);
+                graphics.lineBetween(currentX, currentY, nextX, nextY);
 
-                graphics.quadraticCurveTo(controlX, controlY, currentX, currentY);
+                currentX = nextX;
+                currentY = nextY;
             }
-
-            graphics.strokePath();
         }
     }
 
