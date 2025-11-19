@@ -6,6 +6,10 @@ export class MainMenu extends Phaser.Scene {
     create() {
         const { width, height } = this.cameras.main;
 
+        if (window.gameUIControl) {
+            window.gameUIControl.showOverlay();
+        }
+
         const bg = this.add.graphics();
         bg.fillGradientStyle(0x0a0a2e, 0x0a0a2e, 0x16213e, 0x16213e, 1);
         bg.fillRect(0, 0, width, height);

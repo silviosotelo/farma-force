@@ -17,9 +17,14 @@ export class GameSceneV2 extends Phaser.Scene {
     }
 
     create() {
+        if (window.gameUIControl) {
+            window.gameUIControl.hideOverlay();
+        }
+
         const levelWidth = this.levelData.length;
-        this.physics.world.setBounds(0, 0, levelWidth, 600);
-        this.cameras.main.setBounds(0, 0, levelWidth, 600);
+        const gameHeight = this.cameras.main.height;
+        this.physics.world.setBounds(0, 0, levelWidth, gameHeight);
+        this.cameras.main.setBounds(0, 0, levelWidth, gameHeight);
 
         this.createEnhancedBackground();
 
@@ -85,7 +90,7 @@ export class GameSceneV2 extends Phaser.Scene {
             this.levelData.bgColors[0], this.levelData.bgColors[0],
             this.levelData.bgColors[1], this.levelData.bgColors[1], 1
         );
-        bg.fillRect(0, 0, this.levelData.length, 600);
+        bg.fillRect(0, 0, this.levelData.length, this.cameras.main.height);
 
         this.createOrganicVeins();
         this.createFloatingCells();
@@ -98,7 +103,7 @@ export class GameSceneV2 extends Phaser.Scene {
 
         for (let i = 0; i < 40; i++) {
             const startX = Phaser.Math.Between(0, this.levelData.length);
-            const startY = Phaser.Math.Between(0, 600);
+            const startY = Phaser.Math.Between(0, this.cameras.main.height);
 
             const thickness = Phaser.Math.Between(2, 5);
             graphics.lineStyle(thickness, this.levelData.veinColor || 0x660000, 0.4);
@@ -111,7 +116,7 @@ export class GameSceneV2 extends Phaser.Scene {
             for (let j = 0; j < 15; j++) {
                 currentX += Phaser.Math.Between(30, 120);
                 currentY += Phaser.Math.Between(-80, 80);
-                currentY = Phaser.Math.Clamp(currentY, 0, 600);
+                currentY = Phaser.Math.Clamp(currentY, 0, this.cameras.main.height);
 
                 const controlX = currentX - Phaser.Math.Between(20, 40);
                 const controlY = currentY + Phaser.Math.Between(-30, 30);
@@ -126,7 +131,7 @@ export class GameSceneV2 extends Phaser.Scene {
     createFloatingCells() {
         for (let i = 0; i < 120; i++) {
             const x = Phaser.Math.Between(0, this.levelData.length);
-            const y = Phaser.Math.Between(0, 600);
+            const y = Phaser.Math.Between(0, this.cameras.main.height);
 
             const cell = this.add.circle(x, y, Phaser.Math.Between(3, 12), this.levelData.particleTint, 0.4);
             cell.setScrollFactor(Phaser.Math.FloatBetween(0.2, 0.8));
@@ -235,7 +240,7 @@ export class GameSceneV2 extends Phaser.Scene {
         const camX = this.cameras.main.scrollX;
         const spawnX = camX + 900;
 
-        if (this.enemies.countActive(true) < 10 && spawnX < this.levelData.length - 600) {
+        if (this.enemies.countActive(true) < 10 && spawnX < this.levelData.length - this.cameras.main.width) {
             const typeKey = this.levelData.enemyType;
             const y = (typeKey === 'JAQUECA') ? Phaser.Math.Between(80, 350) : 0;
 

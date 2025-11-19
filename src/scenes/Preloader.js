@@ -282,9 +282,13 @@ export class Preloader extends Phaser.Scene {
 
         graphics.clear();
         graphics.fillStyle(0xffff00, 1);
-        //graphics.fillStar(25, 25, 5, 20, 10);
+        graphics.fillCircle(25, 25, 20);
+        graphics.fillStyle(0xffffff, 0.8);
+        graphics.fillCircle(25, 25, 15);
+        graphics.fillStyle(0xffff00, 1);
+        graphics.fillCircle(25, 25, 10);
         graphics.lineStyle(3, 0xffffff, 1);
-        graphics.strokeCircle(25, 25, 18);
+        graphics.strokeCircle(25, 25, 22);
         graphics.generateTexture('powerup', 50, 50);
 
         graphics.destroy();

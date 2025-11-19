@@ -68,6 +68,12 @@
             animation: float 6s ease-in-out infinite;
             z-index: 10;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .header.visible {
+            opacity: 1;
         }
 
         .header h1 {
@@ -140,6 +146,12 @@
             color: #666;
             z-index: 10;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .footer.visible {
+            opacity: 1;
         }
 
         .footer .controls {
@@ -331,6 +343,18 @@
                 document.getElementById('loading').classList.add('hidden');
             }, 1000);
         });
+
+        // Sistema de control de UI overlay
+        window.gameUIControl = {
+            showOverlay: function() {
+                document.querySelector('.header').classList.add('visible');
+                document.querySelector('.footer').classList.add('visible');
+            },
+            hideOverlay: function() {
+                document.querySelector('.header').classList.remove('visible');
+                document.querySelector('.footer').classList.remove('visible');
+            }
+        };
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
