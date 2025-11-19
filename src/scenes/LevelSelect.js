@@ -20,21 +20,25 @@ export class LevelSelect extends Phaser.Scene {
         bg.fillGradientStyle(0x0a0a2e, 0x0a0a2e, 0x16213e, 0x16213e, 1);
         bg.fillRect(0, 0, width, height);
 
-        this.add.text(width / 2, 60, 'SELECCIONA NIVEL', {
-            fontSize: '48px',
+        if (window.gameUIControl) {
+            window.gameUIControl.showOverlay();
+        }
+
+        this.add.text(width / 2, 80, 'SELECCIONA NIVEL', {
+            fontSize: '40px',
             fill: '#00ffff',
             stroke: '#000',
             strokeThickness: 6,
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        this.add.text(width / 2, 120, `Personaje: ${this.selectedCharacter.name}`, {
-            fontSize: '20px',
+        this.add.text(width / 2, 140, `Personaje: ${this.selectedCharacter.name}`, {
+            fontSize: '18px',
             fill: Phaser.Display.Color.IntegerToColor(this.selectedCharacter.color).rgba
         }).setOrigin(0.5);
 
         const levels = Object.values(LEVELS);
-        const startY = 200;
+        const startY = 220;
 
         levels.forEach((level, index) => {
             const y = startY + (index * 120);

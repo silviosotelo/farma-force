@@ -23,8 +23,8 @@ export class PlayerV2 extends Phaser.Physics.Arcade.Sprite {
         this.isDashing = false;
         this.dashCooldown = 0;
         this.dashSpeed = 700;
-        this.canDoubleSpace = true;
-        this.lastSpacePress = 0;
+        this.canDoubleJump = true;
+        this.hasDoubleJumped = false;
 
         this.weapons = [WEAPONS.IBUPROFENO, WEAPONS.PARACETAMOL, WEAPONS.DICLOFENAC];
         this.weaponLevels = [1, 1, 1];
@@ -101,17 +101,29 @@ export class PlayerV2 extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
-        if (jump && this.body.touching.down) {
-            this.setVelocityY(-500);
-            this.scene.cameras.main.shake(50, 0.002);
+        if (this.body.touching.down) {
+            this.hasDoubleJumped = false;
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.keys.space)) {
-            const currentTime = time;
-            if (currentTime - this.lastSpacePress < 300 && !this.body.touching.down) {
-                this.startDash(time);
+        if (jump) {
+            if (this.body.touching.down) {
+                this.setVelocityY(-550);
+                this.scene.cameras.main.shake(50, 0.002);
+            } else if (!this.hasDoubleJumped && this.canDoubleJump) {
+                this.setVelocityY(-500);
+                this.hasDoubleJumped = true;
+                this.scene.cameras.main.shake(30, 0.001);
+
+                const jumpParticles = this.scene.add.particles(this.x, this.y, 'bullet', {
+                    speed: { min: 50, max: 150 },
+                    scale: { start: 0.5, end: 0 },
+                    blendMode: 'ADD',
+                    lifespan: 300,
+                    quantity: 8,
+                    tint: this.characterData.color
+                });
+                this.scene.time.delayedCall(400, () => jumpParticles.destroy());
             }
-            this.lastSpacePress = currentTime;
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.shift) && time > this.dashCooldown) {

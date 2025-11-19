@@ -91,29 +91,30 @@ export class UISceneV2 extends Phaser.Scene {
         }).setOrigin(0.5);
         this.weaponPanel.add(this.weaponLevel);
 
-        this.itemsPanel = this.add.container(width / 2, height - 80).setScrollFactor(0).setDepth(101);
+        this.itemsPanel = this.add.container(width - 130, height / 2).setScrollFactor(0).setDepth(101);
 
-        const itemsBg = this.add.rectangle(0, 0, 300, 70, 0x000000, 0.5);
-        itemsBg.setStrokeStyle(2, this.character.color, 0.8);
+        const itemsBg = this.add.rectangle(0, 0, 120, 180, 0x000000, 0.3);
+        itemsBg.setStrokeStyle(2, this.character.color, 0.6);
         this.itemsPanel.add(itemsBg);
 
-        this.itemsPanel.add(this.add.text(0, -25, 'ITEMS EQUIPADOS', {
-            fontSize: '12px',
+        this.itemsPanel.add(this.add.text(0, -70, 'ITEMS', {
+            fontSize: '11px',
             fill: '#aaaaaa',
             fontStyle: 'bold'
         }).setOrigin(0.5));
 
         this.itemSlots = [];
         for (let i = 0; i < 2; i++) {
-            const slot = this.add.container(-70 + (i * 140), 5);
+            const slot = this.add.container(0, -30 + (i * 70));
 
-            const slotBg = this.add.rectangle(0, 0, 120, 40, 0x1a1a2e);
-            slotBg.setStrokeStyle(2, 0x444466);
+            const slotBg = this.add.rectangle(0, 0, 100, 55, 0x1a1a2e, 0.4);
+            slotBg.setStrokeStyle(2, 0x444466, 0.5);
             slot.add(slotBg);
 
-            const slotText = this.add.text(0, 0, `[${i + 4}] VACÍO`, {
-                fontSize: '12px',
-                fill: '#666666'
+            const slotText = this.add.text(0, 0, `[${i + 4}]\nVACÍO`, {
+                fontSize: '11px',
+                fill: '#666666',
+                align: 'center'
             }).setOrigin(0.5);
             slot.add(slotText);
 
@@ -176,7 +177,7 @@ export class UISceneV2 extends Phaser.Scene {
 
     updateItem(slot, itemName) {
         if (slot >= 0 && slot < this.itemSlots.length) {
-            this.itemSlots[slot].setText(`[${slot + 4}] ${itemName}`);
+            this.itemSlots[slot].setText(`[${slot + 4}]\n${itemName}`);
             this.itemSlots[slot].setColor('#00ff00');
         }
     }
